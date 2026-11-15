@@ -13,7 +13,7 @@
 // The program runs twice and must write the same bytes both times; it
 // reads nothing but this repository and writes nothing but /output.
 
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -21,9 +21,9 @@ import { buildDossier } from './vendor/makefun-game.ts';
 const repoRoot = fileURLToPath(new URL('.', import.meta.url));
 const outputDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-// Start from a clean output directory so a stale file from an earlier
-// run can never leak into the entry.
-rmSync(outputDir, { recursive: true, force: true });
+// The grader hands us an empty writable /output each run, so there is
+// nothing to clean: never remove the output directory itself (in the
+// grader it is a mount point, and removing it fails the run).
 mkdirSync(outputDir, { recursive: true });
 
 cpSync(join(repoRoot, 'game'), join(outputDir, 'game'), { recursive: true });
