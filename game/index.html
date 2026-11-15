@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOIDLIGHT — hold the drift</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%235ff2ff'/%3E%3C/svg%3E">
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #04050f;
+    height: 100%;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  canvas {
+    width: min(96vw, calc(96vh * 1.6));
+    height: auto;
+    aspect-ratio: 960 / 600;
+    border-radius: 8px;
+    box-shadow: 0 0 60px rgba(95, 242, 255, 0.12);
+    cursor: crosshair;
+    background: #04050f;
+  }
+  footer {
+    color: #5c6f96;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+<canvas id="game" width="960" height="600"></canvas>
+<footer>VOIDLIGHT &middot; WASD move &middot; mouse aim &middot; hold click to fire &middot; E nova &middot; P pause</footer>
+<script type="module">
+  import { Game } from './src/main.js';
+  const game = new Game(document.getElementById('game'));
+  window.__voidlight = game; // play-test hook: read-only state inspection
+  game.run();
+</script>
+</body>
+</html>
